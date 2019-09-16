@@ -6,9 +6,8 @@ $Date$
 $Id$
 --><?xml-model href="http://jenkins.tei-c.org/job/TEIP5-dev/lastSuccessfulBuild/artifact/P5/release/xml/tei/odd/p5.nvdl" type="application/xml" schematypens="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0"?><elementSpec xmlns="http://www.tei-c.org/ns/1.0" module="msdescription" xml:id="LAYOUT" ident="layout">
   <gloss versionDate="2007-06-12" xml:lang="fr">mise en page</gloss>
-  <desc versionDate="2005-01-14" xml:lang="en" xml:id="layout.desc">describes how text is laid out on the
-  page, including information about any ruling, pricking, or other
-  evidence of page-preparation techniques.</desc>
+  <desc versionDate="2019-01-17" xml:lang="en" xml:id="layout.desc">describes how text is laid out on the
+  page or surface of the object, including information about any ruling, pricking, or other evidence of page-preparation techniques.</desc>
   <desc versionDate="2007-12-20" xml:lang="ko">괘선, 윤곽 또는 페이지 준비 기술의 다른 증거에 관한 정보를 포함하여 텍스트의 페이지 레이아웃 방식을 기술한다.</desc>
   <desc versionDate="2007-05-02" xml:lang="zh-TW">描述文字在頁面上的編排，包括任何橫隔線、刺痕、或其他的頁面準備技術的資訊。</desc>
   <desc versionDate="2008-04-05" xml:lang="ja">当該ページ上でテキストがどのようにレイアウトされているかを示す．例え
@@ -36,10 +35,16 @@ $Id$
       <desc versionDate="2007-05-04" xml:lang="es">indica el número de columnas por página.</desc>
       <desc versionDate="2007-01-21" xml:lang="it">specifica il numero di colonne per pagina</desc>
       <datatype minOccurs="1" maxOccurs="2"><dataRef key="teidata.count"/></datatype>
-      <remarks xml:lang="en" versionDate="2013-12-21"><p>If a single
-      number is given, all pages have this number of columns. If two
-      numbers are given, the number of columns per page varies between
-      the values supplied.</p></remarks>
+      <remarks xml:lang="en" versionDate="2017-07-09"><p>If a single number is given, all pages referenced have this number of columns. If two numbers are given, the number of columns per page varies between the values supplied. Where <att>columns</att> is omitted the number is assumed to be <val>1</val>.</p>
+      <p>Columns may be independent of page orientation or reading direction, and a single textual <att>stream</att> may have one or more columns.</p>
+    </remarks>
+    </attDef>
+    <attDef ident="streams">
+	<gloss versionDate="2018-07-12" xml:lang="en">textual streams</gloss>
+        <desc versionDate="2018-07-12" xml:lang="en">indicates the number of streams per page, each of which contains an independent textual stream</desc>
+        <datatype minOccurs="1" maxOccurs="2"><dataRef key="teidata.count"/></datatype>
+        <remarks xml:lang="en" versionDate="2018-07-09"><p>If a single number is given, all pages referenced  have this number of textual streams. If two numbers are given, the number of textual streams per page varies between the values supplied. Where <att>streams</att> is omitted the number is assumed to be <val>1</val> and unless specified elsewhere the script orientation of the source is identical to that used in the TEI document.</p> 
+</remarks>
     </attDef>
     <attDef ident="ruledLines">
       <gloss versionDate="2007-06-12" xml:lang="fr">lignes de réglure</gloss>
@@ -136,6 +141,19 @@ between the columns; each column with between 40 and 50 lines of writing.</p>
       </layout>
     </egXML>
   </exemplum>
+  <exemplum xml:lang="en">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+       <layout streams="3" columns="3"/>
+       <!-- Further down in document body -->
+       <div type="page">
+        <ab><pb/>
+         一二三<cb type="top-stream"/>
+         一二三<cb type="mid-stream"/>
+         一二三<cb type="bottom-stream"/> <!-- cb here for demo purposes -->
+        </ab>
+       </div>
+      </egXML>
+    </exemplum>
   <listRef>
     <ptr target="#msph2"/>
   </listRef>
