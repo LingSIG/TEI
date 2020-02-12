@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+Copyright TEI Consortium. 
+Dual-licensed under CC-by and BSD2 licences 
+See the file COPYING.txt for details
+$Date$
+$Id$
+--><?xml-model href="http://jenkins.tei-c.org/job/TEIP5-dev/lastSuccessfulBuild/artifact/P5/release/xml/tei/odd/p5.nvdl" type="application/xml" schematypens="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0"?>
+<classSpec xmlns="http://www.tei-c.org/ns/1.0" module="tei" type="atts" ident="att.offset">
+  
+  <desc versionDate="2020-02-06" xml:lang="en">provides attributes for the purpose of defining segments within data stream by indicating the start and end offsets</desc>
+  <classes/>
+  
+  <constraintSpec ident="endPosnotstartPos" scheme="schematron"
+    xmlns:sch="http://purl.oclc.org/dsdl/schematron">
+    <!-- paraphrased from span.xml-->
+    <constraint>
+      <sch:rule context="*[@endPos]">
+        <sch:assert test="@startPos">If @endPos is supplied on <sch:name/>, @startPos must
+          be supplied as well</sch:assert>
+      </sch:rule>
+    </constraint>
+  </constraintSpec>
+  
+  <constraintSpec ident="startPosnotendPos" scheme="schematron"
+    xmlns:sch="http://purl.oclc.org/dsdl/schematron">
+    <!-- paraphrased from span.xml-->
+    <constraint>
+      <sch:rule context="*[@startPos]">
+        <sch:assert test="@endPos">If @startPos is supplied on
+          <sch:name/>, @endPos must be supplied as well</sch:assert></sch:rule>
+    </constraint>
+  </constraintSpec>
+  
+  <constraintSpec ident="offsetBaseObligatory" scheme="schematron"
+    xmlns:sch="http://purl.oclc.org/dsdl/schematron">
+    <constraint>
+      <sch:rule context="*[@endPos]"><sch:assert test="ancestor-or-self::*[@offsetBase]"
+        >offset attributes require @offsetBase to be defined in the same element or its
+        ancestor</sch:assert></sch:rule>
+    </constraint>
+  </constraintSpec>
+  
+  <attList>
+    <attDef ident="offsetBase" usage="opt">
+      <desc versionDate="2020-02-06" xml:lang="en">points at the element that forms the
+        basis for offset calculations in standoff annotations. An element using the
+        <att>startPos</att> and <att>endPos</att> attributes either has to define
+        <att>offsetBase</att> as well, or <att>offsetBase</att> should be defined on an
+        ancestor element.</desc>
+      <datatype>
+        <dataRef key="teidata.pointer"/>
+      </datatype>
+    </attDef>
+    <!--
+                This came as legacy from the attReferring ticket, where attributes could 
+                have different datatypes. In the case at hand, the content below should probably 
+                become part of the documentation. 
+                
+                
+                <attDef ident="offsetUnit" usage="opt">
+                <desc versionDate="2020-02-06" xml:lang="en">specifies the kind of units that are
+                  used to count the offset. The default value of this attribute is
+                    <val>icp</val> that stands for "inter-character points".</desc>
+                <datatype>
+                  <dataRef key="teidata.enumerated"/>
+                </datatype>
+                <defaultVal>icp</defaultVal>
+                <valList type="closed">
+                  <valItem ident="char">
+                    <!-\-  note that this could be two values: "char0" and "char1", 
+                      for simplicity and to eliminate the separate step of documenting the start value-\->
+                    <desc versionDate="2020-02-06" xml:lang="en">edges are identified by numeric
+                      offsets (non-negative integers); note that a separate project-specific
+                      convention regulates the value of the starting index (0 or 1). In the string
+                      "a bit weird", the substring "bit" is delimited by offsets 3 and 5 (on the
+                      crucial assumption that the count starts at 1), or 2 and 4 -\- on the
+                      assumption that the count starts at 0.</desc>
+                  </valItem>
+                  <valItem ident="icp">
+                    <desc versionDate="2020-02-06" xml:lang="en">"icp" stands for "inter-character
+                      point". Edges are identified by numeric offsets (non-negative integers)
+                      identifying inter-character points. In e.g. the string "point",
+                      inter-character points are marked by vertical lines: |p|o|i|n|t| (by
+                      convention, there is an icp before the first character and after the last
+                      one); note that a separate project-specific convention regulates the value of
+                      the starting index (0 or 1). ISO LAF and ISO MAF advocate 0 as the start
+                      index. The same convention has been used by W3C XPointer.</desc>
+                  </valItem>
+                  <valItem ident="byte">
+                    <desc versionDate="2020-02-06" xml:lang="en">edges are identified by numeric
+                      offsets (non-negative integers) addressing bytes. Note that this low-level
+                      indexing type ignores XML or any other structuring.</desc>
+                  </valItem>
+                </valList>
+              </attDef>-->
+    <attDef ident="startPos" usage="opt">
+      <desc versionDate="2020-02-06" xml:lang="en">specifies the starting point of a sequence of characters
+        or bytes, or of elements that can be pointed at with a URI.</desc>
+      <datatype minOccurs="1" maxOccurs="1">
+        <dataRef key="teidata.count"/>
+      </datatype>
+    </attDef>
+    <attDef ident="endPos" usage="opt">
+      <desc versionDate="2020-02-06" xml:lang="en">specifies the end-point of a sequence of characters
+        or bytes, or of elements that can be pointed at with a URI.</desc>
+      <datatype minOccurs="1" maxOccurs="1">
+        <dataRef key="teidata.count"/>
+      </datatype>
+    </attDef>
+  </attList>
+  <exemplum xml:lang="en">
+    <p>The example below comes from a part of the CoMParS (Collection of Multi-lingual Parallel
+      Sequences) project and presents a fragment of a monolingual subcorpus of German.</p>
+    <p>The individual sequences (in this case, a sentence) are listed in the <gi>text</gi> part
+      of the corpus, while the linguistic analysis is performed in the <gi>standOff</gi> part,
+      which consists, among others, of segmentation information. CoMParS adheres to ISO LAF
+      principles and uses inter-character points with the indexing starting at 0.</p>
+    
+    <!--	@valid should become "true" once the modification is incorporated into the Guidelines	-->
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" valid="feasible">
+      <text xml:lang="de">
+        <body>
+          <ab xml:id="deu-ab1" n="1">Ich habe mich im Winter in dich verliebt.</ab>
+        </body>
+      </text>
+      <!--        
+'I'c'h' 'h'a'b'e' 'm'i'c'h' 'i'm' 'W'i'n't'e'r' 'i'n' 'd'i'c'h' 'v'e'r'l'i'e'b't'.'
+0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1  -->
+      <standOff xmlns="">
+        <listAnnotation n="1" offsetBase="#deu-ab1" type="sequence">
+          <listAnnotation type="segmentation">
+            <seg startPos="0" endPos="3" xml:id="deu-ab1tok1">Ich</seg>
+            <seg startPos="4" endPos="8" xml:id="deu-ab1tok2">habe</seg>
+            <seg startPos="9" endPos="13" xml:id="deu-ab1tok3">mich</seg>
+            <seg startPos="14" endPos="16" xml:id="deu-ab1tok4">im</seg>
+            <seg startPos="17" endPos="23" xml:id="deu-ab1tok5">Winter</seg>
+            <seg startPos="24" endPos="26" xml:id="deu-ab1tok6">in</seg>
+            <seg startPos="27" endPos="31" xml:id="deu-ab1tok7">dich</seg>
+            <seg startPos="32" endPos="40" xml:id="deu-ab1tok8">verliebt</seg>
+            <seg startPos="40" endPos="41" xml:id="deu-ab1tok9">.</seg>
+          </listAnnotation>
+        </listAnnotation>
+      </standOff>
+    </egXML>
+    <p>Segmentation information gathered above is subsequently used by all other (numerous) annotation layers.</p>
+    <p>The CoMParS ODD contains the following statements that include <gi>seg</gi> and
+      <gi>listAnnotation</gi> into the att.offset class: <egXML
+        xmlns="http://www.tei-c.org/ns/Examples" valid="true">
+        <elementSpec ident="seg" module="linking" mode="change">
+          <classes mode="change">
+            <memberOf key="att.offset"/>
+          </classes>
+        </elementSpec>
+        <elementSpec ident="listAnnotation" module="spoken" mode="change">
+          <classes mode="change">
+            <memberOf key="att.offset"/>
+          </classes>
+        </elementSpec>
+      </egXML>
+    </p>
+  </exemplum>
+  <remarks versionDate="2017-03-21" xml:lang="en">
+    <p>Two options are possible (and practiced) for the start index. Some systems assume
+      that indexing starts with 0, some assume that the initial index value is 1. This
+      decision should be documented in the header, together with other project-specific
+      encoding decisions. Linguistic analysis in the ISO LAF (Linguistic Annotation
+      Framework, ISO 24612), MAF (Morphosyntactic Annotation Framework, ISO 24611), as
+      well as W3C XPointer assume inter-character points and indices starting at 0. W3C
+      XPath counts characters, beginning at 1.</p>
+  </remarks>
+</classSpec>
