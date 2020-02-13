@@ -51,48 +51,6 @@ $Id$
         <dataRef key="teidata.pointer"/>
       </datatype>
     </attDef>
-    <!--
-                This came as legacy from the attReferring ticket, where attributes could 
-                have different datatypes. In the case at hand, the content below should probably 
-                become part of the documentation. 
-                
-                
-                <attDef ident="offsetUnit" usage="opt">
-                <desc versionDate="2020-02-06" xml:lang="en">specifies the kind of units that are
-                  used to count the offset. The default value of this attribute is
-                    <val>icp</val> that stands for "inter-character points".</desc>
-                <datatype>
-                  <dataRef key="teidata.enumerated"/>
-                </datatype>
-                <defaultVal>icp</defaultVal>
-                <valList type="closed">
-                  <valItem ident="char">
-                    <!-\-  note that this could be two values: "char0" and "char1", 
-                      for simplicity and to eliminate the separate step of documenting the start value-\->
-                    <desc versionDate="2020-02-06" xml:lang="en">edges are identified by numeric
-                      offsets (non-negative integers); note that a separate project-specific
-                      convention regulates the value of the starting index (0 or 1). In the string
-                      "a bit weird", the substring "bit" is delimited by offsets 3 and 5 (on the
-                      crucial assumption that the count starts at 1), or 2 and 4 -\- on the
-                      assumption that the count starts at 0.</desc>
-                  </valItem>
-                  <valItem ident="icp">
-                    <desc versionDate="2020-02-06" xml:lang="en">"icp" stands for "inter-character
-                      point". Edges are identified by numeric offsets (non-negative integers)
-                      identifying inter-character points. In e.g. the string "point",
-                      inter-character points are marked by vertical lines: |p|o|i|n|t| (by
-                      convention, there is an icp before the first character and after the last
-                      one); note that a separate project-specific convention regulates the value of
-                      the starting index (0 or 1). ISO LAF and ISO MAF advocate 0 as the start
-                      index. The same convention has been used by W3C XPointer.</desc>
-                  </valItem>
-                  <valItem ident="byte">
-                    <desc versionDate="2020-02-06" xml:lang="en">edges are identified by numeric
-                      offsets (non-negative integers) addressing bytes. Note that this low-level
-                      indexing type ignores XML or any other structuring.</desc>
-                  </valItem>
-                </valList>
-              </attDef>-->
     <attDef ident="startPos" usage="opt">
       <desc versionDate="2020-02-06" xml:lang="en">specifies the starting point of a sequence of characters
         or bytes, or of elements that can be pointed at with a URI.</desc>
@@ -116,7 +74,7 @@ $Id$
       which consists, among others, of segmentation information. CoMParS adheres to ISO LAF
       principles and uses inter-character points with the indexing starting at 0.</p>
     
-    <!--	@valid should become "true" once the modification is incorporated into the Guidelines	-->
+    <!--	@valid should become "true", eventually	-->
     <egXML xmlns="http://www.tei-c.org/ns/Examples" valid="feasible">
       <text xml:lang="de">
         <body>
@@ -159,13 +117,43 @@ $Id$
       </egXML>
     </p>
   </exemplum>
-  <remarks versionDate="2017-03-21" xml:lang="en">
-    <p>Two options are possible (and practiced) for the start index. Some systems assume
+  <remarks versionDate="2020-02-13" xml:lang="en">
+    <p>Two initial values are possible and practiced for the start index. Some systems assume
       that indexing starts with 0, some assume that the initial index value is 1. This
       decision should be documented in the header, together with other project-specific
-      encoding decisions. Linguistic analysis in the ISO LAF (Linguistic Annotation
+      encoding decisions.</p>
+    <p>The offset objects (= what is counted to determine the offset) have been defined differently
+      depending on the adopted standard or convention:<list rend="bulleted">
+        <item>one possibility is to count characters</item>
+        <item>another possibility is to count inter-character points</item>
+        <item>yet another possibility is to counter byte offsets across the entire document; note that this low-level
+          indexing type ignores XML or any other structuring.</item>
+      </list></p>
+      
+      <p>Linguistic analysis in the ISO LAF (Linguistic Annotation
       Framework, ISO 24612), MAF (Morphosyntactic Annotation Framework, ISO 24611), as
       well as W3C XPointer assume inter-character points and indices starting at 0. W3C
       XPath counts characters, beginning at 1.</p>
+    
+    <p>
+    
+    edges are identified by numeric
+      offsets (non-negative integers); note that a separate project-specific
+      convention regulates the value of the starting index (0 or 1). In the string
+      "a bit weird", the substring "bit" is delimited by offsets 3 and 5 (on the
+      crucial assumption that the count starts at 1), or 2 and 4 -\- on the
+      assumption that the count starts at 0.
+      
+      "icp" stands for "inter-character
+        point". Edges are identified by numeric offsets (non-negative integers)
+        identifying inter-character points. In e.g. the string "point",
+        inter-character points are marked by vertical lines: |p|o|i|n|t| (by
+        convention, there is an icp before the first character and after the last
+        one); note that a separate project-specific convention regulates the value of
+        the starting index (0 or 1). ISO LAF and ISO MAF advocate 0 as the start
+        index. The same convention has been used by W3C XPointer (and more specifically, by its xpointer() scheme).
+    
+    </p>
+    
   </remarks>
 </classSpec>
