@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Copyright TEI Consortium. 
 Dual-licensed under CC-by and BSD2 licences 
@@ -232,7 +232,7 @@ entries.<egXML xmlns="http://www.tei-c.org/ns/Examples" xml:lang="und">
 <specGrpRef target="#DDIHW"/>
 
 <specGrp xml:id="DEDIMV" n="Attributes for dictionary work">
-<include xmlns="http://www.w3.org/2001/XInclude" href="../../Specs/att.lexicographic.xml"/>
+  <include xmlns="http://www.w3.org/2001/XInclude" href="../../Specs/att.lexicographic.xml"/>
   <include xmlns="http://www.w3.org/2001/XInclude" href="../../Specs/att.partials.xml"/>
 </specGrp>
 
@@ -1772,7 +1772,7 @@ a sense number, or other further restriction specifying what portion of the
 target entry is being referred to).
 The <gi>xr</gi> element
 is used to group the target with any accompanying phrases or symbols used to
-label the cross-reference; the cross-reference label itself may be tagged as a
+label the cross-reference; the cross-reference label itself may be encoded with
 <gi>lbl</gi> or may remain untagged. Both of the following are thus
 legitimate: <q rend="display">
 <hi rend="bold">glee</hi> … Compare <hi rend="bold">madrigal</hi> (1)
@@ -2691,8 +2691,9 @@ captured by encoding one <soCalled>dominant</soCalled> view in the character
 data content of the document, and encoding the other using attribute values on
 the appropriate elements. If all tags were to be removed, the remaining
 characters would be those of the dominant view of the text. </p>
-<p>The attribute class <ident type="class">att.lexicographic</ident> is used to
-provide attributes for use in encoding multiple views of the same dictionary
+<p>The attribute class <ident type="class">att.lexicographic</ident> (which 
+includes the attributes <att>norm</att> and <att>org</att> from class <ident type="class">att.lexicographic.normalized</ident>) 
+is used to provide attributes for use in encoding multiple views of the same dictionary
 entry. These attributes are available for use on all elements defined in this
 chapter when the base module for dictionaries is selected. </p>
 <p>When the editorial view is dominant, the following attributes may be used to
@@ -3093,7 +3094,7 @@ Urdu] <ref target="#DIC-CED">CED</ref> </q>
   <p>The module defined in this chapter makes available the following
   components:
   <moduleSpec xml:id="DDIBO" ident="dictionaries">
-    <altIdent type="FPI">Dictionaries</altIdent>
+    <idno type="FPI">Dictionaries</idno>
     <desc xml:lang="en" versionDate="2018-07-12">Dictionaries</desc>
     <desc xml:lang="fr" versionDate="2018-07-09">Dictionnaires</desc>
     <desc xml:lang="zh-TW" versionDate="2018-07-09">紙本字典</desc>

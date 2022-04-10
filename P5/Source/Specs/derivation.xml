@@ -8,6 +8,7 @@ $Id$
 -->
 <?xml-model href="http://jenkins.tei-c.org/job/TEIP5-dev/lastSuccessfulBuild/artifact/P5/release/xml/tei/odd/p5.nvdl" type="application/xml" schematypens="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0"?>
 <elementSpec xmlns="http://www.tei-c.org/ns/1.0" module="corpus" ident="derivation">
+  <gloss xml:lang="en" versionDate="2007-06-12">derivation</gloss>
   <gloss versionDate="2007-06-12" xml:lang="fr">dérivation</gloss>
   <desc versionDate="2005-01-14" xml:lang="en">describes the nature and extent of originality of this text.</desc>
   <desc versionDate="2007-12-20" xml:lang="ko">텍스트의 원본성에 대한 특성과 범위를 기술한다.</desc>
@@ -35,7 +36,7 @@ $Id$
       <desc versionDate="2007-05-04" xml:lang="es">caracteriza la derivación del texto</desc>
       <desc versionDate="2007-01-21" xml:lang="it">classifica la provenienza del testo.</desc>
       <datatype><dataRef key="teidata.enumerated"/></datatype>
-      <valList type="open">
+      <valList type="open" mode="add">
         <valItem ident="original">
           <desc versionDate="2007-06-27" xml:lang="en">text is original</desc>
           <desc versionDate="2007-12-20" xml:lang="ko">텍스트가 원본이다.</desc>
@@ -109,6 +110,15 @@ est l'un des nombreux textes dérivés d'un ancêtre commun.</desc>
   <exemplum xml:lang="en">
     <egXML xmlns="http://www.tei-c.org/ns/Examples" source="#UND">
       <derivation type="original"/>
+    </egXML>
+  </exemplum>
+  <exemplum xml:lang="en" versionDate="2019-09-16">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" source="#UND">
+      <derivation type="translation" source="#rosette"/>
+      <!--  ...    -->
+      <!--  in the sourceDesc:    -->
+      <bibl xml:id="rosette">
+        <author>de Béranger, Pierre-Jean</author>. <date>1839</date>. "<title level="a">Rosette</title>". In <editor>H. Fournier</editor>, ed. <title level="m">Œuvres complètes de Béranger</title>. <biblScope unit="volume">Vol 2</biblScope> (p. <biblScope unit="page">29-30</biblScope>).</bibl>
     </egXML>
   </exemplum>
   <exemplum versionDate="2008-04-06" xml:lang="fr">
